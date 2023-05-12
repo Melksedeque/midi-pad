@@ -3,7 +3,14 @@ const sons = document.querySelectorAll('audio');
 let cont = 0;
 
 function tocarSom(idElemento) {
-    document.querySelector(idElemento).play();
+    const audio = document.querySelector(idElemento);
+
+    if(audio && audio.localName === 'audio') {
+        audio.play();
+    }
+    else {
+        alert("Elemento não encontrado ou seletor inválido!");
+    }
 }
 
 for (let cont = 0; cont < teclas.length; cont ++) {
@@ -12,8 +19,15 @@ for (let cont = 0; cont < teclas.length; cont ++) {
     const idAudio = `#som_${instrumento}`;
 
     tecla.onclick = function() {
-        // console.log(idAudio);
         tocarSom(idAudio);
     };
-    // console.log(cont);
+    
+    tecla.onkeydown = function(e) {
+        if(e.code === "Enter" || e.code === "Space") {
+            tecla.classList.add('ativa');
+        }
+        else {
+            tecla.classList.remove('ativa');
+        }
+    }
 }
